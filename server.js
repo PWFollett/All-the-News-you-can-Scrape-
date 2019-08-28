@@ -63,7 +63,7 @@ app.get("/scrape", function (req, res) {
 
 
       // If we were able to successfully scrape and save an Question, send a message to the client
-      res.send("Hey!!! You were able to sucessfully scrape!!!");
+      res.send("You were able to sucessfully scrape!!!");
     });
   });
 });

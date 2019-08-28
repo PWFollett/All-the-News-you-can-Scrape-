@@ -1,5 +1,5 @@
 body {
-    background-color: #979bad;
+    background-color: #969bad;
   }
   #wrapper {
     width: 960px;
@@ -18,14 +18,14 @@ body {
     float: right;
     width: 30%;
     color: black;
-    background-color: #979bad;
+    background-color: #969bad;
     padding: 15px;
   }
   textarea,
   input {
     display: block;
     width: 100%;
-    background-color: #979bad;
+    background-color: #969bad;
   }
   input {
     height: 150px;
@@ -46,14 +46,14 @@ body {
     text-align: justify;
   }
   nav.navbar.navbar-expand-lg.navbar-dark.bg-dark.text-white {
-    background-color: #232e5e !important;
+    background-color: #242e5e !important;
   }
   ul nav.navbar-nav.navbar-right {
     position: right !important;
   }
   .navbar.navbar-light.bg-light {
     width: 100%;
-    background-color: #232e5e !important;
+    background-color: #242e5e !important;
     padding: 0px;
-    border-top: 40px solid #232e5e;
+    border-top: 40px solid #242e5e;
   }
