@@ -29,23 +29,25 @@ mongoose.connect(MONGODB_URI);
 
 
 app.get("/scrape", function (req, res) {
-  
+  console.log("We hit the Scrape Route")
 
-  axios.get("https://stackoverflow.com/").then(function (response) {
+  axios.get("https://www.amctheatres.com/movies").then(function (response) {
 
   
     var $ = cheerio.load(response.data);
+    // console.log(response.data)
 
     
     var result = {};
-
+  
+  console.log("cheerio test", $(".Slide").html())
     
-    $("a.question-hyperlink").each(function (i, element) {
+    $(".Slide").each(function (i, element) {
 
       result.title = $(this).text();
       result.link = $(this).attr("href");
 
-
+      console.log(result)
      
       db.Question.create(result)
         .then(function (dbQuestion) {
@@ -65,7 +67,7 @@ app.get("/scrape", function (req, res) {
 });
 
 
-app.get("/Questions", function (req, res) {
+app.get("/question", function (req, res) {
 
   db.Question.find({})
     .then(function (dbQuestion) {
@@ -79,7 +81,7 @@ app.get("/Questions", function (req, res) {
 });
 
 
-app.get("/Questions/:id", function (req, res) {
+app.get("/question/:id", function (req, res) {
  
   db.Question.findOne({
       _id: req.params.id
@@ -97,7 +99,7 @@ app.get("/Questions/:id", function (req, res) {
 });
 
 
-app.post("/questions/:id", function (req, res) {
+app.post("/question/:id", function (req, res) {
  
   db.Note.create(req.body)
     .then(function (dbNote) {
