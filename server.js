@@ -23,7 +23,7 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://<dbuser>:<dbpassword>@ds151997.mlab.com:51997/heroku_drskj777";
 
 mongoose.connect(MONGODB_URI);
 
@@ -31,7 +31,7 @@ mongoose.connect(MONGODB_URI);
 app.get("/scrape", function (req, res) {
   console.log("We hit the Scrape Route")
 
-  axios.get("https://www.amctheatres.com/movies").then(function (response) {
+  axios.get("https://stackoverflow.com/search?q=mongoose").then(function(response) {
 
   
     var $ = cheerio.load(response.data);
@@ -40,9 +40,9 @@ app.get("/scrape", function (req, res) {
     
     var result = {};
   
-  console.log("cheerio test", $(".Slide").html())
+  console.log("cheerio test", $(".question-summary").html())
     
-    $(".Slide").each(function (i, element) {
+    $(".question-summary").each(function (i, element) {
 
       result.title = $(this).text();
       result.link = $(this).attr("href");
@@ -67,7 +67,7 @@ app.get("/scrape", function (req, res) {
 });
 
 
-app.get("/question", function (req, res) {
+app.get("/questions", function (req, res) {
 
   db.Question.find({})
     .then(function (dbQuestion) {
@@ -81,7 +81,7 @@ app.get("/question", function (req, res) {
 });
 
 
-app.get("/question/:id", function (req, res) {
+app.get("/questions/:id", function (req, res) {
  
   db.Question.findOne({
       _id: req.params.id
@@ -99,7 +99,7 @@ app.get("/question/:id", function (req, res) {
 });
 
 
-app.post("/question/:id", function (req, res) {
+app.post("/questions/:id", function (req, res) {
  
   db.Note.create(req.body)
     .then(function (dbNote) {
