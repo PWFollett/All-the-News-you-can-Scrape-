@@ -6,11 +6,11 @@ var Schema = mongoose.Schema;
 var QuestionSchema = new Schema({
   title: {
     type: String,
-    required: true
+  
   },
   link: {
     type: String,
-    required: true
+    
   },
   
   note: {

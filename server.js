@@ -16,28 +16,27 @@ app.use(express.json());
 app.use(express.static("public"));
 
 
-var MONGODB_URI = process.env.MONGODB_URI || "mongodb://<dbuser>:<dbpassword>@ds151997.mlab.com:51997/heroku_drskj777";
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/stackoverflowdb"
 
 mongoose.connect(MONGODB_URI);
 
 
 app.get("/scrape", function (req, res) {
   console.log("We hit the Scrape Route")
-  axios.get("https://stackoverflow.com/search?q=mongoose").then(function(response) {
+  axios.get("https://www.nytimes.com/section/politics").then(function(response) {
     var $ = cheerio.load(response.data);
-   console.log(response.data) 
- console.log("cheerio test", $(".question-summary").html()) 
-    $(".question-summary").each(function (i, element) {
+ 
+    $(".css-4jyr1y").each(function (i, element) { 
+      console.log($(this).find(".css-1j9dxys").html())
+      console.log($(this).find("a").attr("href"))
       var result = {};
-      result.title = $(this).find('h3').text();
-      console.log('result.title',result.title)
-      result.link = $(this).attr("href");
-      console.log(result)
+      result.title = ($(this).find(".css-1j9dxys").html())
+      result.link = ($(this).find("a").attr("href"))
+     
     
       db.Question.create(result)
         .then(function (dbQuestion) {
          
-          console.log('hi');
         })
         .catch(function (err) {
 
@@ -46,9 +45,10 @@ app.get("/scrape", function (req, res) {
 
 
    
-      res.send("You were able to sucessfully scrape!!!");
+     
     });
   });
+  res.send("You were able to sucessfully scrape!!!");
 });
 
 
