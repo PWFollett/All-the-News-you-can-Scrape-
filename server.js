@@ -1,17 +1,10 @@
 
 var express = require("express");
-
 var mongoose = require("mongoose");
-
-
 var axios = require("axios");
 var cheerio = require("cheerio");
-
 var db = require("./models");
-
 const PORT = process.env.PORT || 8080;
-
-
 var app = express();
 
 app.use(express.urlencoded({
@@ -30,29 +23,21 @@ mongoose.connect(MONGODB_URI);
 
 app.get("/scrape", function (req, res) {
   console.log("We hit the Scrape Route")
-
   axios.get("https://stackoverflow.com/search?q=mongoose").then(function(response) {
-
-  
     var $ = cheerio.load(response.data);
-    // console.log(response.data)
-
-    
-    var result = {};
-  
-  console.log("cheerio test", $(".question-summary").html())
-    
+   console.log(response.data) 
+ console.log("cheerio test", $(".question-summary").html()) 
     $(".question-summary").each(function (i, element) {
-
-      result.title = $(this).text();
+      var result = {};
+      result.title = $(this).find('h3').text();
+      console.log('result.title',result.title)
       result.link = $(this).attr("href");
-
       console.log(result)
-     
+    
       db.Question.create(result)
         .then(function (dbQuestion) {
          
-          console.log(dbQuestion);
+          console.log('hi');
         })
         .catch(function (err) {
 
